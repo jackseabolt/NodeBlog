@@ -41,7 +41,8 @@ function closeServer(){
 		})
 		resolve(); 
 	}); 
-
 }
+
+runServer(); 
 
 module.exports = { app, closeServer, runServer }; 
