@@ -43,6 +43,10 @@ function closeServer(){
 	}); 
 }
 
-runServer(); 
+if(require.main === module) {
+	console.log("Starting in production or development mode");
+	runServer().catch(err => console.err(err)); 
+}
+
 
 module.exports = { app, closeServer, runServer }; 
