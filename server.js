@@ -4,6 +4,13 @@ const express = require('express');
 const app = express(); 
 const morgan = require('morgan'); 
 const blogRouter = require("./blogRouter");
+const knex = require("knex")({
+	client: 'pg',
+	connection: {
+		database: 'nodeblog'
+	}
+}); 
+
 
 app.use("/blog-posts", blogRouter); 
 app.use(morgan('common')); 
@@ -13,7 +20,7 @@ app.get("/myname", (req, res) => {
 }); 
 
 app.get("/", (req, res) => {
-	res.send("<p style=\"color: red;\">Here is a p tag</p>")
+	res.send("<p>This is the API root. To make queries to the blog database, please use the '/blog-posts' extension</p>")
 }); 
 
 let server;

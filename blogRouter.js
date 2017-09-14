@@ -2,11 +2,16 @@ const express = require("express");
 const router = express.Router(); 
 const bodyParser = require("body-parser"); 
 const jsonParser = bodyParser.json(); 
-const {BlogPost} = require("./model"); 
+const {BlogPost} = require("./model");
+const knex = require("knex")({
+	client: 'pg',
+	connection: {
+		database: 'nodeblog'
+	}
+});  
 
 router.post("/", jsonParser, (req,res) => {
 	const requiredFields = ["title", "content"]; 
-	console.log("IT GOT TO HERE")
 	for(let i = 0; i < requiredFields.length; i++){
 		field = requiredFields[i]; 
 		if(!(field in req.body)){
@@ -15,9 +20,17 @@ router.post("/", jsonParser, (req,res) => {
 			res.send(400).send(message)
 		}
 	}
-	console.log(req.body.title); 
-	const item = BlogPost.create(req.body.title, req.body.content); 
-	res.json(item); 
+	const newData = {
+		title: req.body.title, 
+		content: req.body.content
+	}
+	knex('posts')
+		.returning(['title', 'content', 'id', 'create_date'])
+		.insert(newData)
+		.then(response => {
+			console.log(response); 
+			res.status(201).json(response); 
+		})
 }); 	
 
 module.exports = router; 
