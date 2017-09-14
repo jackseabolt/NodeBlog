@@ -7,28 +7,28 @@ chai.use(chaiHttp);
 
 
 
-describe("BlogPosts", function(){
+// describe("BlogPosts", function(){
 
-    before(function(){
-        return runServer(); 
-    }); 
+//     before(function(){
+//         return runServer(); 
+//     }); 
 
-    after(function(){
-        return closeServer(); 
-    })
+//     after(function(){
+//         return closeServer(); 
+//     })
 
-    it("on POST it returns a javascript object if fed proper parameters", function(){
+//     it("on POST it returns a javascript object if fed proper parameters", function(){
         
-        const newPost = {
-            "title": "XXX",
-            "content": "xxx"
-        }
+//         const newPost = {
+//             "title": "XXX",
+//             "content": "xxx"
+//         }
 
-        return chai.request(app)
-            .post('/blog-posts')
-            .send(newPost)
-            .then(function(res){
-                res.should.have.status(201); 
-            })
-    }); 
-}); 
+//         return chai.request(app)
+//             .post('/blog-posts')
+//             .send(newPost)
+//             .then(function(res){
+//                 res.should.have.status(201); 
+//             })
+//     }); 
+// }); 
